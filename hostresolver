@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo " Automated bulk host/subdomain resolver to find live hosts/subdomains by B4GG3R"
+echo " Usage: hostresolver hosts.txt output.txt"
+echo ""
+
+# 1 first install hostresolver https://github.com/subfission/HostResolver 
+# 2 use: chmod +x resolv.py
+# 3 copy resolv.py to /usr/bin/resolv2
+
+resolv2 $1 | grep -v unresolv | awk -F'| ' '{print $2}' | grep '\.' | sort -u >> $2
+
+for count in $(cat $2 | wc -l); do echo " Resolved "$count" hosts for "$1""; done
